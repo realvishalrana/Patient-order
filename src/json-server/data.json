@@ -1,0 +1,386 @@
+{
+  "medicine": [
+    {
+      "id": "55d634b8-1a4a-4d5a-bc87-b476ca2cc63a",
+      "name": "Lactubalamin",
+      "description": "A vitamin B12 supplement.",
+      "category": "Supplement",
+      "manufacturer": "PharmaCorp",
+      "variants": [
+        {
+          "id": "90e52c38-9b19-4d7c-91a1-33c0b5dbba62",
+          "strength": 100,
+          "unit": "mg",
+          "price": 4.00
+        },
+        {
+          "id": "394ff64e-78ea-48da-b130-6d6205dd146f",
+          "strength": 250,
+          "unit": "mg",
+          "price": 8.00
+        },
+        {
+          "id": "dfb3541c-60c4-4b3c-916b-9eae42c8e3c3",
+          "strength": 500,
+          "unit": "mg",
+          "price": 12.00
+        }
+      ]
+    },
+    {
+      "id": "fdbb6d47-5bc4-47e0-9a98-ef8e0c4f8a17",
+      "name": "Dexilant",
+      "description": "A medication used to treat acid reflux.",
+      "category": "Gastrointestinal",
+      "manufacturer": "HealthMed",
+      "variants": [
+        {
+          "id": "ca62b3b4-d401-4725-9492-85cf32da1f2a",
+          "strength": 250,
+          "unit": "mg",
+          "price": 12.50
+        },
+        {
+          "id": "2550c2e5-3839-4575-9fd4-9f5c149d67d3",
+          "strength": 500,
+          "unit": "mg",
+          "price": 18.99
+        }
+      ]
+    },
+    {
+      "id": "3b7b9bfa-f6aa-460e-8226-cd9c58fe0c20",
+      "name": "Cephorotene",
+      "description": "An antibiotic used for bacterial infections.",
+      "category": "Antibiotic",
+      "manufacturer": "MediGen",
+      "variants": [
+        {
+          "id": "dfbe715b-81b8-41c5-bbab-c8eec54c4f36",
+          "strength": 100,
+          "unit": "mg",
+          "price": 10.99
+        },
+        {
+          "id": "ac3e1f4c-c9ed-42bb-90d2-c8e9b0cdd6f9",
+          "strength": 500,
+          "unit": "mg",
+          "price": 25.50
+        }
+      ]
+    },
+    {
+      "id": "c04eb0b9-d948-4ab3-809d-5299f9d4ecfa",
+      "name": "Nisonuvia",
+      "description": "A pain reliever used for moderate to severe pain.",
+      "category": "Analgesic",
+      "manufacturer": "PainFree Inc.",
+      "variants": [
+        {
+          "id": "cf1b2129-4b3e-4bbd-98c5-bf61b63d51ba",
+          "strength": 500,
+          "unit": "mg",
+          "price": 18.99
+        },
+        {
+          "id": "6d6743cb-509b-4fdb-9a3e-93ef29f4517c",
+          "strength": 750,
+          "unit": "mg",
+          "price": 25.50
+        }
+      ]
+    },
+    {
+      "id": "2b2e6e79-1c1a-46a6-a9d8-d81685e9f8aa",
+      "name": "Acetylvene",
+      "description": "A powerful anti-inflammatory drug.",
+      "category": "Anti-inflammatory",
+      "manufacturer": "BioPharm",
+      "variants": [
+        {
+          "id": "d542db2b-8599-4cf7-8374-16a7f8b1ac70",
+          "strength": 100,
+          "unit": "mg",
+          "price": 80.50
+        },
+        {
+          "id": "726252c4-4301-49b3-94c2-2385d59b197b",
+          "strength": 250,
+          "unit": "mg",
+          "price": 100.50
+        },
+        {
+          "id": "0c572857-2975-4b5e-9ae6-813c13cb8c79",
+          "strength": 500,
+          "unit": "mg",
+          "price": 130.99
+        },
+        {
+          "id": "269c8266-df0b-4c7f-bb78-5f1c14fd7d3a",
+          "strength": 750,
+          "unit": "mg",
+          "price": 150.00
+        }
+      ]
+    },
+    {
+      "id": "bd66bcd1-9b9d-4d2a-a29a-82344f908e11",
+      "name": "Dantolofen",
+      "description": "A muscle relaxant for relieving muscle spasms.",
+      "category": "Muscle Relaxant",
+      "manufacturer": "FlexMed",
+      "variants": [
+        {
+          "id": "df2396c3-41f9-41c9-a1ee-8d0c8dc18d2b",
+          "strength": 300,
+          "unit": "mg",
+          "price": 22.00
+        },
+        {
+          "id": "c18c9f9a-4d2a-41f2-bb34-5b3b3f35848b",
+          "strength": 500,
+          "unit": "mg",
+          "price": 35.00
+        }
+      ]
+    },
+    {
+      "id": "f2a51f4f-9f3e-4e80-b1ea-3f91dc524f1e",
+      "name": "Adapatosine Navelposide",
+      "description": "A chemotherapy agent used in cancer treatment.",
+      "category": "Chemotherapy",
+      "manufacturer": "OncoPharma",
+      "variants": [
+        {
+          "id": "a48f6eac-2c90-4e50-a58c-08a01c4390c1",
+          "strength": 100,
+          "unit": "mg",
+          "price": 15.99
+        },
+        {
+          "id": "6fb46491-52a1-44c1-99d5-65a708b70896",
+          "strength": 300,
+          "unit": "mg",
+          "price": 24.99
+        },
+        {
+          "id": "6933b42f-55ae-47e5-b2f3-60dcfbe9eab5",
+          "strength": 500,
+          "unit": "mg",
+          "price": 30.99
+        }
+      ]
+    },
+    {
+      "id": "637abe35-4a7a-4389-b670-2676e5c6dbf5",
+      "name": "Clinstadil Finasate",
+      "description": "An antihypertensive medication for lowering blood pressure.",
+      "category": "Antihypertensive",
+      "manufacturer": "CardioHealth",
+      "variants": [
+        {
+          "id": "ab69b682-7f42-4c68-91f5-b27f1e7b34d0",
+          "strength": 100,
+          "unit": "mg",
+          "price": 25.00
+        },
+        {
+          "id": "3d14d8a5-229e-4d1a-9d67-015e379b79a7",
+          "strength": 250,
+          "unit": "mg",
+          "price": 50.00
+        },
+        {
+          "id": "0adf3a7f-1712-439b-b3cf-7d403349be17",
+          "strength": 500,
+          "unit": "mg",
+          "price": 80.00
+        }
+      ]
+    },
+    {
+      "id": "0a70a2e2-6e56-46da-a1f2-582e43b8ed6f",
+      "name": "Naftitropin Acynam",
+      "description": "A hormone therapy drug used for growth hormone deficiencies.",
+      "category": "Hormone Therapy",
+      "manufacturer": "EndoTech",
+      "variants": [
+        {
+          "id": "c4d41d4b-3f30-4a45-bd2c-b5a6c4042359",
+          "strength": 100,
+          "unit": "mg",
+          "price": 8.99
+        },
+        {
+          "id": "8d79fd37-5a84-47cb-85c1-2deaf70d4b92",
+          "strength": 250,
+          "unit": "mg",
+          "price": 16.00
+        },
+        {
+          "id": "8d79fd37-5a84-47cb-85c1-2deaf70d4b92",
+          "strength": 500,
+          "unit": "mg",
+          "price": 24.99
+        }
+      ]
+    },
+    {
+      "id": "cb3fd9ed-0d78-41fa-8cf8-e022e7de6e0f",
+      "name": "Proramine Abretin",
+      "description": "A medication used for treating high blood pressure.",
+      "category": "Antihypertensive",
+      "manufacturer": "Wellness Pharmaceuticals",
+      "variants": [
+        {
+          "id": "de120d5b-9397-4e5b-bec5-c1b0f03d95f7",
+          "strength": 100,
+          "unit": "mg",
+          "price": 10.00
+        },
+        {
+          "id": "4d179303-cfb7-4a82-bcc4-615184556f2d",
+          "strength": 500,
+          "unit": "mg",
+          "price": 35.00
+        },
+        {
+          "id": "f13b6fe5-364e-4b84-8e58-7e3fbb25e30d",
+          "strength": 750,
+          "unit": "mg",
+          "price": 49.99
+        }
+      ]
+    }
+  ],
+  "laboratory-test": [
+    {
+      "id": "90a8b423-417f-4092-8262-c9afc7921cbe",
+      "name": "Complete Blood Count (CBC)",
+      "description": "A blood test used to evaluate your overall health.",
+      "price": 45.00,
+      "specimens": [
+        "Blood"
+      ],
+      "duration": "15 minutes",
+      "methodology": "Automated analysis",
+      "instruction": "No special preparation is needed."
+    },
+    {
+      "id": "aad147c5-e108-4d7b-953d-6dd74b9e020e",
+      "name": "Liver Function Test (LFT)",
+      "description": "A test to assess the health of your liver.",
+      "price": 70.00,
+      "specimens": [
+        "Blood",
+        "Urine"
+      ],
+      "duration": "30 minutes",
+      "methodology": "Enzymatic analysis",
+      "instruction": "Fast for 10-12 hours before the test."
+    },
+    {
+      "id": "f9a36df2-ece6-4df5-99ff-4f82c9ec1f70",
+      "name": "Stool Culture",
+      "description": "A test to detect the presence of bacteria or parasites in the stool.",
+      "price": 55.00,
+      "specimens": [
+        "Stool"
+      ],
+      "duration": "2-3 days",
+      "methodology": "Bacterial culture",
+      "instruction": "Collect stool sample in a sterile container."
+    },
+    {
+      "id": "f6d47995-fbff-4765-96e7-b8f68793055d",
+      "name": "Thyroid Function Test (TFT)",
+      "description": "A test to measure thyroid gland performance.",
+      "price": 80.00,
+      "specimens": [
+        "Blood",
+        "Saliva"
+      ],
+      "duration": "20 minutes",
+      "methodology": "Hormonal assay",
+      "instruction": "Avoid thyroid medication 24 hours before the test."
+    },
+    {
+      "id": "014b5e9c-d6c4-49ad-9f27-41751b69bcd6",
+      "name": "Urinalysis",
+      "description": "A routine test to analyze urine content.",
+      "price": 40.00,
+      "specimens": [
+        "Urine"
+      ],
+      "duration": "10 minutes",
+      "methodology": "Microscopic and chemical analysis",
+      "instruction": "Collect the first morning urine sample."
+    },
+    {
+      "id": "0a3cbf6b-53f2-41a7-9cf1-bf9fcfc1978e",
+      "name": "Sputum Culture",
+      "description": "A test to detect bacterial or fungal infections in the lungs.",
+      "price": 65.00,
+      "specimens": [
+        "Sputum"
+      ],
+      "duration": "2-3 days",
+      "methodology": "Microbial culture",
+      "instruction": "Collect sputum first thing in the morning after rinsing your mouth."
+    },
+    {
+      "id": "72a590e2-b3f7-4d21-9c0b-56319918470f",
+      "name": "Vitamin D Test",
+      "description": "A test to measure the level of Vitamin D in the blood.",
+      "price": 75.00,
+      "specimens": [
+        "Blood"
+      ],
+      "duration": "15 minutes",
+      "methodology": "Immunoassay",
+      "instruction": "No special preparation is needed."
+    },
+    {
+      "id": "5739d06c-d9f7-46cb-a36f-772105705a1c",
+      "name": "Influenza PCR",
+      "description": "A test to detect the presence of influenza virus RNA.",
+      "price": 110.00,
+      "specimens": [
+        "Sputum",
+        "Saliva"
+      ],
+      "duration": "2-4 hours",
+      "methodology": "Polymerase Chain Reaction (PCR)",
+      "instruction": "Avoid eating or drinking 30 minutes before collecting the sample."
+    },
+    {
+      "id": "3124b91d-6b68-4a39-a8e6-b73412d3d490",
+      "name": "COVID-19 Antigen Test",
+      "description": "A test to detect active COVID-19 infection.",
+      "price": 100.00,
+      "specimens": [
+        "Nasal Swab",
+        "Saliva"
+      ],
+      "duration": "15-30 minutes",
+      "methodology": "Immunoassay",
+      "instruction": "Avoid eating or drinking 30 minutes before the test."
+    },
+    {
+      "id": "3c78d8e1-324b-4601-9884-8080ae8f3d93",
+      "name": "Bocavirus PCR",
+      "description": "A test to detect the presence of bocavirus DNA.",
+      "price": 120.00,
+      "specimens": [
+        "Blood",
+        "Urine",
+        "Plasma",
+        "Saliva",
+        "Sputum"
+      ],
+      "duration": "4-6 hours",
+      "methodology": "Polymerase Chain Reaction (PCR)",
+      "instruction": "No special preparation is needed."
+    }
+  ]
+}

@@ -1,0 +1,336 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet">
+</head>
+
+<body>
+<div class="root-wrapper">
+    <header class="header">
+        Patient Order Form
+    </header>
+    <main>
+        <div class="border-separator"></div>
+        <div class="block-section">
+            <div class="flex-col gap-24">
+                <div class="block-header">Basic Details</div>
+
+                <div class="block-content">
+                    <div class="grid grid-cols-4 gap-16">
+                        <div class="control-wrapper">
+                            <label class="control-label">Patient Name*</label>
+                            <input class="control-input" type="text">
+                        </div>
+
+
+                        <div class="control-wrapper">
+                            <label>Gender*</label>
+                            <select class="control-select">
+                                <option value="">Select</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="unknown">Unknown</option>
+                            </select>
+                        </div>
+
+                        <div class="control-wrapper">
+                            <label>Date Of Birth*</label>
+                            <input class="control-input" type="date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-separator"></div>
+        <div class="block-section">
+            <div class="flex-col gap-32">
+                <div class="flex item-center justify-between">
+                    <div class="block-header">Orders</div>
+                    <div class="flex gap-16">
+                        <button class="button button-solid">Add Medicine Order</button>
+                        <button class="button button-solid">Add Lab Order</button>
+                    </div>
+                </div>
+
+
+                <div class="flex-col gap-24">
+
+                    <div class="card card-order">
+                        <div class="flex item-center justify-between">
+                            <div class="block-header">Medicine Order (#1)</div>
+
+                            <div class="flex item-center gap-12">
+                                <button class="button button-icon button-drag">
+                                    <img src="img/menu.svg" alt="" height="24px" width="24px">
+                                </button>
+                                <button class="button button-icon">
+                                    <img src="img/delete.svg" alt="" height="24px" width="24px">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="block-content">
+                            <div class="grid grid-cols-4 gap-y-24 gap-x-16">
+                                <div class="control-wrapper">
+                                    <label>Medicine Name*</label>
+                                    <select class="control-select">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+
+                                <div class="control-wrapper">
+                                    <label>Strength*</label>
+                                    <select class="control-select">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+
+                                <div class="control-wrapper col-start-1">
+                                    <label>Price*</label>
+                                    <input class="control-input" type="number">
+                                </div>
+
+                                <div class="control-wrapper">
+                                    <label>Qty*</label>
+                                    <input class="control-input" type="number">
+                                </div>
+
+                                <div class="control-wrapper">
+                                    <label>Total</label>
+                                    <input class="control-input" type="number" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-order">
+                        <div class="flex item-center justify-between">
+                            <div class="block-header">Medicine Order (#2)</div>
+
+                            <div class="flex item-center gap-12">
+                                <button class="button button-icon button-drag">
+                                    <img src="img/menu.svg" alt="" height="24px" width="24px">
+                                </button>
+                                <button class="button button-icon">
+                                    <img src="img/delete.svg" alt="" height="24px" width="24px">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="block-content">
+                            <div class="grid grid-cols-4 gap-y-24 gap-x-16">
+                                <div class="control-wrapper">
+                                    <label>Medicine Name*</label>
+                                    <select class="control-select">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+
+                                <div class="control-wrapper">
+                                    <label>Strength*</label>
+                                    <select class="control-select">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+
+                                <div class="control-wrapper col-start-1">
+                                    <label>Price*</label>
+                                    <input class="control-input" type="number">
+                                </div>
+
+                                <div class="control-wrapper">
+                                    <label>Qty*</label>
+                                    <input class="control-input" type="number">
+                                </div>
+
+                                <div class="control-wrapper">
+                                    <label>Total</label>
+                                    <input class="control-input" type="number" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-order">
+                        <div class="flex item-center justify-between">
+                            <div class="block-header">Lab Order (#3)</div>
+
+                            <div class="flex item-center gap-12">
+                                <button class="button button-icon button-drag">
+                                    <img src="img/menu.svg" alt="" height="24px" width="24px">
+                                </button>
+                                <button class="button button-icon">
+                                    <img src="img/delete.svg" alt="" height="24px" width="24px">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-4 gap-y-24 gap-x-16">
+                            <div class="control-wrapper">
+                                <label>Lab Test Name*</label>
+                                <select class="control-select">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+
+
+                            <div class="control-wrapper">
+                                <label>Specimen Type</label>
+                                <input class="control-input" type="text" disabled>
+                            </div>
+
+                            <div class="control-wrapper">
+                                <label>Priority*</label>
+                                <select class="control-select">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+
+                            <div class="control-wrapper">
+                                <label>Price*</label>
+                                <input class="control-input" type="number">
+                            </div>
+
+                            <div class="col-span-full">
+                                <div class="control-wrapper">
+                                    <label>Instructions*</label>
+                                    <textarea class="control-textarea" rows="1"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-order">
+                        <div class="flex item-center justify-between">
+                            <div class="block-header">Medicine Order (#4)</div>
+
+                            <div class="flex item-center gap-12">
+                                <button class="button button-icon button-drag">
+                                    <img src="img/menu.svg" alt="" height="24px" width="24px">
+                                </button>
+                                <button class="button button-icon">
+                                    <img src="img/delete.svg" alt="" height="24px" width="24px">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="block-content">
+                            <div class="grid grid-cols-4 gap-y-24 gap-x-16">
+                                <div class="control-wrapper">
+                                    <label>Medicine Name*</label>
+                                    <select class="control-select">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+
+                                <div class="control-wrapper">
+                                    <label>Strength*</label>
+                                    <select class="control-select">
+                                        <option value="">Select</option>
+                                    </select>
+                                </div>
+
+                                <div class="control-wrapper col-start-1">
+                                    <label>Price*</label>
+                                    <input class="control-input" type="number">
+                                </div>
+
+                                <div class="control-wrapper">
+                                    <label>Qty*</label>
+                                    <input class="control-input" type="number">
+                                </div>
+
+                                <div class="control-wrapper">
+                                    <label>Total</label>
+                                    <input class="control-input" type="number" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Extra-->
+                    <div class="card card-order">
+                        <div class="flex item-center justify-between">
+                            <div class="block-header">Lab Order (#5)</div>
+
+                            <div class="flex item-center gap-12">
+                                <button class="button button-icon button-drag">
+                                    <img src="img/menu.svg" alt="" height="24px" width="24px">
+                                </button>
+                                <button class="button button-icon">
+                                    <img src="img/delete.svg" alt="" height="24px" width="24px">
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-4 gap-y-24 gap-x-16">
+                            <div class="control-wrapper control-error">
+                                <label class="control-label">Lab Test Name*</label>
+                                <select class="control-select">
+                                    <option value="">Select</option>
+                                </select>
+                                <span class="control-error-subscript">Lab Test Name is required</span>
+                            </div>
+
+
+                            <div class="control-wrapper">
+                                <label>Specimen Type</label>
+                                <input class="control-input" type="text" disabled>
+                            </div>
+
+                            <div class="control-wrapper control-error">
+                                <label class="control-label">Priority*</label>
+                                <select class="control-select">
+                                    <option value="">Select</option>
+                                </select>
+                                <span class="control-error-subscript">Priority is required</span>
+                            </div>
+
+                            <div class="control-wrapper control-error">
+                                <label class="control-label">Price*</label>
+                                <input class="control-input" type="number">
+                                <span class="control-error-subscript">Price is required</span>
+                            </div>
+
+                            <div class="col-span-full">
+                                <div class="control-wrapper">
+                                    <label class="control-label">Instructions</label>
+                                    <textarea class="control-textarea" rows="1"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-no-orders">
+                        No Orders Added
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="border-separator"></div>
+    </main>
+
+    <footer class="footer">
+        <div class="flex item-center justify-end gap-16">
+            <button class="button button-solid button-disable">Reset</button>
+            <button class="button button-solid">Save</button>
+        </div>
+
+    </footer>
+</div>
+</body>
+
+</html>
