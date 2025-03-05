@@ -49,7 +49,6 @@ const usePatientOrder = () => {
     },
     validationSchema: orderValidationSchema,
     onSubmit: (values) => {
-      console.log('values: ', values);
       // console.log(values, {
       //   selectedMedicine,
       //   strengthOptions,

@@ -20,7 +20,6 @@ const PatientOrder = () => {
     handleAddMedicineOrder,
     handleAddLabOrder,
   } = props;
-  console.log('formik: ', formik);
 
   return (
     <div className="root-wrapper">

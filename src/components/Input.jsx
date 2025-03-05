@@ -1,5 +1,6 @@
 import React from "react";
 import { getError } from "../utils/helper";
+import CancelIcon from "../icons/CancelIcon";
 
 const InputField = ({
   id,
@@ -15,6 +16,7 @@ const InputField = ({
   labelClass,
   placeholder,
   isRequired = false,
+  isClear = true,
   ...other
 }) => {
   return (
@@ -22,7 +24,16 @@ const InputField = ({
       <label htmlFor={id} className={labelClass}>
         {label} {isRequired && "*"}
       </label>
-
+      {/* {isClear  && (
+        <button
+          onClick={() => {
+            formik?.setFieldValue(inputName, null);
+          }}
+          className="absolute cursor-pointer right-3"
+        >
+          <CancelIcon />
+        </button>
+      )} */}
       <input
         id={id}
         type={type}
