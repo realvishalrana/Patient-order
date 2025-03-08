@@ -6,32 +6,42 @@ import * as Yup from "yup";
 const useMedicineOrder = () => {
   const formik = useFormik({
     initialValues: {
+      patientName: "",
+      gender: "",
+      dob: "",
       medicineOptions: [],
       strengthOptions: [],
     },
-    // validationSchema: Yup.object().shape({
-    //   medicineOrders: Yup.array().of(
-    //     Yup.object().shape({
-    //       selectedMedicine: Yup.string().required("Medicine is required"),
-    //       selectedStrength: Yup.object().required("Strength is required"),
-    //       qty: Yup.number()
-    //         .min(1, "Quantity must be at least 1")
-    //         .required("Quantity is required"),
-    //       price: Yup.number()
-    //         .min(1, "Quantity must be at least 1")
-    //         .required("Quantity is required"),
-    //     })
-    //   ),
-    //   labOrders: Yup.array().of(
-    //     Yup.object().shape({
-    //       selectedLab: Yup.string().required("Lab test is required"),
-    //       specimen: Yup.string().required("Specimen type is required"),
-    //       qty: Yup.number()
-    //         .min(1, "Quantity must be at least 1")
-    //         .required("Quantity is required"),
-    //     })
-    //   ),
-    // }),
+    validationSchema: Yup.object().shape({
+      patientName: Yup.string().required("Patient name is required"),
+      gender: Yup.object().nullable().required("Please select gender"),
+      dob: Yup.string().required("Please select DOB"),
+      medicineOrders: Yup.array().of(
+        Yup.object().shape({
+          selectedMedicine: Yup.object()
+            .nullable()
+            .required("Medicine is required"),
+          selectedStrength: Yup.object()
+            .nullable()
+            .required("Strength is required"),
+          qty: Yup.number()
+            .min(1, "Quantity must be at least 1")
+            .required("Quantity is required"),
+          price: Yup.number()
+            .min(1, "Price must be at least 1")
+            .required("Price is required"),
+        })
+      ),
+      labOrders: Yup.array().of(
+        Yup.object().shape({
+          selectedLab: Yup.string().required("Lab test is required"),
+          specimen: Yup.string().required("Specimen type is required"),
+          qty: Yup.number()
+            .min(1, "Quantity must be at least 1")
+            .required("Quantity is required"),
+        })
+      ),
+    }),
     onSubmit: (values) => {
       console.log("values: ", values);
     },
@@ -86,7 +96,6 @@ const useMedicineOrder = () => {
       }))
       .sort((a, b) => a.value - b.value);
 
-
     const selectedMedicineObj = {
       label: firstArray.name,
       value: firstArray.id,
@@ -111,106 +120,62 @@ const useMedicineOrder = () => {
     ]);
   };
 
-  // const handleAddMedicine = () => {
-
-  //   const firstArray = formik.values.medicineOptions[0];
-  //   const firstVariants = firstArray.variants[0];
-
-  //   const strengthOptions = firstArray.variants
-  //     .map((data) => ({
-  //       label: `${data.strength} ${data.unit}`,
-  //       value: data.id,
-  //       ...data,
-  //     }))
-  //     .sort((a, b) => a - b);
-
-  //   const selectedMedicineObj = {
-  //     label: firstArray.name,
-  //     value: firstArray.id,
-  //   };
-
-  //   const obj = {
-  //     label: strengthOptions[0]?.label,
-  //     value: strengthOptions[0]?.value,
-  //     ...strengthOptions[0],
-  //   };
-
-  //   formik.setFieldValue("strengthOptions", strengthOptions);
-  //   formik.setFieldValue("medicineOrders", [
-  //     ...formik.values.medicineOrders,
-  //     {
-  //       selectedMedicine: selectedMedicineObj,
-  //       selectedStrength: obj,
-  //       qty: 1,
-  //       price: firstVariants.price,
-  //       total: 1 * firstVariants.price,
-  //     },
-  //   ]);
-  // };
-
   const handleMedicineChange = (event, index) => {
-    const selectedMedicine = event.target.value;
-    const medicineOrders = [...formik.values.medicineOrders];
-    medicineOrders[index].selectedMedicine = selectedMedicine;
-    formik.setFieldValue("medicineOrders", medicineOrders);
-
-    const { medicineOptions } = formik.values;
-    const findedMedicine = medicineOptions.find(
-      (med) => med.value === selectedMedicine
+    // Convert event value to string for comparison
+    const selectedMedicineValue = event.target.value;
+    // Find the full selected medicine object from medicineOptions
+    const selectedMedicineObj = formik.values.medicineOptions.find(
+      (med) => med.value.toString() === selectedMedicineValue.toString()
     );
 
-    if (findedMedicine) {
-      const strengthOptions = findedMedicine.variants
+    // Update the medicine order at the given index with the full object
+    const medicineOrders = [...formik.values.medicineOrders];
+    medicineOrders[index].selectedMedicine = selectedMedicineObj;
+    formik.setFieldValue("medicineOrders", medicineOrders);
+
+    if (selectedMedicineObj) {
+      // Build strength options from the selected medicine variants,
+      // including both label and value
+      const strengthOptions = selectedMedicineObj.variants
         .map((data) => ({
           label: `${data.strength} ${data.unit}`,
           value: data.id,
           ...data,
         }))
-        .sort((a, b) => a - b);
+        .sort((a, b) => a.value - b.value);
 
+      // Optionally update a global strengthOptions if needed
       formik.setFieldValue("strengthOptions", strengthOptions);
-      formik.setFieldValue(
-        `medicineOrders[${index}].selectedStrength`,
-        strengthOptions[0].strength
-      );
-      formik.setFieldValue(
-        `medicineOrders[${index}].price`,
-        strengthOptions[0].price
-      );
-      formik.setFieldValue(
-        `medicineOrders[${index}].total`,
-        Number(
-          formik.values.medicineOrders[index].qty * strengthOptions[0].price
-        )
-      );
-      formik.setFieldValue(`medicineOrders[${index}].qty`, 1);
+
+      // Use the first strength option as the default selection
+      const defaultStrength = strengthOptions[0];
+      medicineOrders[index].selectedStrength = defaultStrength;
+      medicineOrders[index].price = defaultStrength.price;
+      medicineOrders[index].qty = 1;
+      medicineOrders[index].total = 1 * defaultStrength.price;
+      formik.setFieldValue("medicineOrders", medicineOrders);
     }
   };
 
   const handleStrengthChange = (event, index) => {
-    const selectedStrength = event.target.value;
+    // Get the selected strength value from the event
+    const selectedStrengthValue = event.target.value;
+    // Find the full strength object from the current global strengthOptions
+    const selectedStrengthObj = formik.values.strengthOptions.find(
+      (s) => s.value.toString() === selectedStrengthValue.toString()
+    );
+
+    // Update the medicine order at the given index with the full object
     const medicineOrders = [...formik.values.medicineOrders];
-    medicineOrders[index].selectedStrength = selectedStrength;
+    medicineOrders[index].selectedStrength = selectedStrengthObj;
     formik.setFieldValue("medicineOrders", medicineOrders);
 
-    const { medicineOptions } = formik.values;
-    const findedMedicine = medicineOptions.find(
-      (med) => med.value === medicineOrders[index].selectedMedicine
-    );
-    const findedStrength = findedMedicine.variants.find(
-      (variant) => variant.id === selectedStrength
-    );
-    if (findedStrength) {
-      formik.setFieldValue(
-        `medicineOrders[${index}].price`,
-        findedStrength.price
-      );
-
-      const total =
-        Number(formik.values.medicineOrders[index].qty) *
-        Number(findedStrength.price);
-
-      formik.setFieldValue(`medicineOrders[${index}].total`, total);
+    if (selectedStrengthObj) {
+      // Update the price and total using the new strength details
+      medicineOrders[index].price = selectedStrengthObj.price;
+      medicineOrders[index].total =
+        Number(medicineOrders[index].qty) * Number(selectedStrengthObj.price);
+      formik.setFieldValue("medicineOrders", medicineOrders);
     }
   };
 
@@ -236,6 +201,12 @@ const useMedicineOrder = () => {
     );
   };
 
+  const handleDeleteMedicineOrder = (index) => {
+    const medicineOrders = [...formik.values.medicineOrders];
+    medicineOrders.splice(index, 1);
+    formik.setFieldValue("medicineOrders", medicineOrders);
+  };
+
   return {
     formik,
     handleAddMedicine,
@@ -243,6 +214,7 @@ const useMedicineOrder = () => {
     handleStrengthChange,
     handleQuantityChange,
     handlePriceChange,
+    handleDeleteMedicineOrder,
   };
 };
 

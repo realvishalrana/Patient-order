@@ -1,6 +1,5 @@
 import React from "react";
-import { getError } from "../utils/helper";
-import CancelIcon from "../icons/CancelIcon";
+import { getErrors } from "../utils/helper";
 
 const InputField = ({
   id,
@@ -10,30 +9,25 @@ const InputField = ({
   inputValue,
   formik = null,
   type = "text",
-  objKey = false,
   isError = false,
   disabled = false,
   labelClass,
   placeholder,
   isRequired = false,
   isClear = true,
+  objKey = false,
+  dynamicError = false,
+  index = false,
   ...other
 }) => {
   return (
-    <>
-      <label htmlFor={id} className={labelClass}>
+    <div className="relative w-full ">
+      <label
+        htmlFor={id}
+        className={`block text-sm font-medium text-gray-700 ${labelClass}`}
+      >
         {label} {isRequired && "*"}
       </label>
-      {/* {isClear  && (
-        <button
-          onClick={() => {
-            formik?.setFieldValue(inputName, null);
-          }}
-          className="absolute cursor-pointer right-3"
-        >
-          <CancelIcon />
-        </button>
-      )} */}
       <input
         id={id}
         type={type}
@@ -46,9 +40,11 @@ const InputField = ({
       />
 
       {isError && formik ? (
-        <div style={{ color: "red" }}>{getError({ formik, inputName })}</div>
+        <div className="text-red-500 text-sm mt-1">
+          {getErrors({ formik, objKey, inputName, index, dynamicError })}
+        </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
