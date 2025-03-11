@@ -9,6 +9,9 @@ const useMedicineOrder = () => {
       patientName: "",
       gender: "",
       dob: "",
+      labOrders: [],
+      medicineOrders: [],
+      labTestOptions: [],
       medicineOptions: [],
       strengthOptions: [],
     },
@@ -47,11 +50,11 @@ const useMedicineOrder = () => {
     },
   });
 
-  const getLabOrder = () => {
+  const getMedicineOrder = () => {
     try {
       axios({
         method: "get",
-        url: "http://localhost:3000/medicine",
+        url: "http://localhost:3001/medicine",
       }).then(({ data = [] }) => {
         const modifiedData = data.map((med) => {
           return {
@@ -63,11 +66,32 @@ const useMedicineOrder = () => {
         formik.setFieldValue("medicineOptions", modifiedData);
       });
     } catch (error) {
+      console.error("getMedicineOrder data found");
+    }
+  };
+
+  const getLabOrder = () => {
+    try {
+      axios({
+        method: "get",
+        url: "http://localhost:3001/laboratory-test",
+      }).then(({ data = [] }) => {
+        const modifiedData = data.map((med) => {
+          return {
+            ...med,
+            label: med.name,
+            value: med.id,
+          };
+        });
+        formik.setFieldValue("lapOptions", modifiedData);
+      });
+    } catch (error) {
       console.error("getLabOrder data found");
     }
   };
 
   useEffect(() => {
+    getMedicineOrder();
     getLabOrder();
   }, []);
 
@@ -207,6 +231,63 @@ const useMedicineOrder = () => {
     formik.setFieldValue("medicineOrders", medicineOrders);
   };
 
+  const handleClearData = ({ objKey, index, inputName }) => {
+    if (inputName === "selectedMedicine") {
+      const fieldPath = `${objKey}[${index}].selectedStrength`;
+      formik.setFieldValue(fieldPath, null);
+    }
+    formik.setFieldValue(`${objKey}[${index}].price`, 0);
+    formik.setFieldValue(`${objKey}[${index}].total`, 0);
+    formik.setFieldValue(`${objKey}[${index}].qty`, 1);
+  };
+
+  const handleAddLabOrder = () => {
+    // For demonstration, we take the second lab test from your list
+    const selectedLabTest = formik.values.lapOptions[1];
+  
+    if (!selectedLabTest) {
+      console.error("No lab test data available.");
+      return;
+    }
+  
+    // Prepare specimen options – here we assume each specimen is a string.
+    const specimenOptions = selectedLabTest.specimens.map((specimen) => ({
+      label: specimen,
+      value: specimen, // Adjust if you have an ID for each specimen
+    }));
+  
+    // Define your priority options as needed.
+    const priorityOptions = [
+      { label: "Critical Care", value: "CriticalCare" },
+      { label: "Standard Care", value: "StandardCare" },
+      { label: "Routine Care", value: "RoutineCare" },
+      { label: "Scheduled Care", value: "ScheduledCare" },
+    ];
+  
+    const selectedMedicineObj = {
+      label: selectedLabTest.name,
+      value: selectedLabTest.id,
+    };
+  
+    // Create a lab order object with pre-populated values.
+    const newLabOrder = {
+      name: selectedMedicineObj,
+      labTestOptions: [selectedMedicineObj],
+      specimenOptions: specimenOptions,
+      price: selectedLabTest.price,
+      instruction: selectedLabTest.instruction,
+      priorityOptions: priorityOptions,
+      priority: priorityOptions[0],
+    };
+  
+    // Append the new lab order to your existing lab orders array.
+    formik.setFieldValue("labOrders", [
+      ...(formik.values.labOrders || []),
+      newLabOrder,
+    ]);
+  };
+  
+
   return {
     formik,
     handleAddMedicine,
@@ -215,6 +296,8 @@ const useMedicineOrder = () => {
     handleQuantityChange,
     handlePriceChange,
     handleDeleteMedicineOrder,
+    handleClearData,
+    handleAddLabOrder,
   };
 };
 

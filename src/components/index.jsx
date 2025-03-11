@@ -3,16 +3,19 @@ import useMedicineOrder from "../hooks/useMedicineOrder";
 import Dropdown from "./Dropdown";
 import InputField from "./Input";
 import CancelfillIcon from "../icons/CancelIcon";
+import TextArea from "./TextArea";
 
 const OrderIndex = () => {
   const {
+    formik,
     handleAddMedicine,
     handleMedicineChange,
     handleStrengthChange,
     handleQuantityChange,
     handlePriceChange,
-    formik: medicineFormik,
     handleDeleteMedicineOrder,
+    handleClearData,
+    handleAddLabOrder,
   } = useMedicineOrder();
 
   return (
@@ -22,26 +25,26 @@ const OrderIndex = () => {
       </h2>
       <div className="space-y-4">
         <InputField
-          formik={medicineFormik}
+          formik={formik}
           label="Patient Name"
           inputName="patientName"
           isError
           isRequired
-          {...medicineFormik.getFieldProps("patientName")}
+          {...formik.getFieldProps("patientName")}
         />
         <InputField
-          formik={medicineFormik}
+          formik={formik}
           label="DOB"
           inputName="dob"
           type="date"
           isError
           isRequired
-          {...medicineFormik.getFieldProps("dob")}
+          {...formik.getFieldProps("dob")}
         />
         <Dropdown
           label="Gender"
-          formik={medicineFormik}
-          value={medicineFormik.values.gender}
+          formik={formik}
+          value={formik.values.gender}
           inputName="gender"
           options={[
             { label: "Male", value: "male" },
@@ -50,7 +53,7 @@ const OrderIndex = () => {
           isError
           isRequired
           onChange={(e) =>
-            medicineFormik.setFieldValue("gender", {
+            formik.setFieldValue("gender", {
               label: e.target.value,
               value: e.target.value,
             })
@@ -68,12 +71,18 @@ const OrderIndex = () => {
             >
               Add Medicine Order
             </button>
+            <button
+              onClick={handleAddLabOrder}
+              className="px-6 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg active:scale-95"
+            >
+              Add Lab Order
+            </button>
           </div>
         </div>
 
         <div className="grid gap-6 mt-4">
-          {medicineFormik.values?.medicineOrders?.length > 0 ? (
-            medicineFormik.values?.medicineOrders?.map((order, index) => (
+          {formik.values?.medicineOrders?.length > 0 ? (
+            formik.values?.medicineOrders?.map((order, index) => (
               <div
                 key={index}
                 className="bg-white p-6 rounded-lg shadow-md space-y-4 relative transform transition-all duration-300 hover:shadow-lg animate-fadeIn"
@@ -98,10 +107,11 @@ const OrderIndex = () => {
                     objKey="medicineOrders"
                     inputName="selectedMedicine"
                     label="Medicine"
-                    formik={medicineFormik}
-                    options={medicineFormik.values.medicineOptions}
+                    formik={formik}
+                    options={formik.values.medicineOptions}
                     value={order.selectedMedicine}
                     onChange={(e) => handleMedicineChange(e, index)}
+                    handleClearData={handleClearData}
                   />
                   <Dropdown
                     isError
@@ -110,11 +120,12 @@ const OrderIndex = () => {
                     index={index}
                     objKey="medicineOrders"
                     inputName="selectedStrength"
-                    formik={medicineFormik}
+                    formik={formik}
                     label="Strength"
-                    options={medicineFormik.values.strengthOptions}
+                    options={formik.values.strengthOptions}
                     value={order.selectedStrength}
                     onChange={(e) => handleStrengthChange(e, index)}
+                    handleClearData={handleClearData}
                   />
                   <InputField
                     isError
@@ -125,7 +136,7 @@ const OrderIndex = () => {
                     objKey="medicineOrders"
                     inputName="price"
                     label="Price"
-                    formik={medicineFormik}
+                    formik={formik}
                     value={order.price}
                     onChange={(e) => handlePriceChange(e, index)}
                   />
@@ -138,13 +149,13 @@ const OrderIndex = () => {
                     objKey="medicineOrders"
                     inputName="qty"
                     label="Qty"
-                    formik={medicineFormik}
+                    formik={formik}
                     value={order.qty}
                     onChange={(e) => handleQuantityChange(e, index)}
                   />
                   <InputField
                     label="Total"
-                    formik={medicineFormik}
+                    formik={formik}
                     value={order.total}
                     disabled
                     className="md:col-span-2"
@@ -158,11 +169,84 @@ const OrderIndex = () => {
             </div>
           )}
         </div>
+
+        <div className="grid gap-6 mt-4">
+          {formik.values?.labOrders?.length > 0 ? (
+            formik.values.labOrders.map((order, index) => (
+              <div
+                key={index}
+                className="bg-white p-6 rounded-lg shadow-md space-y-4"
+              >
+                <Dropdown
+                  label="Lab Test Name"
+                  inputName="labTestName"
+                  value={order.name} 
+                  options={order.labTestOptions}
+                  formik={formik}
+                />
+                <Dropdown
+                  label="Specimen Type"
+                  inputName="specimenType"
+                  value={order.specimenOptions}
+                  options={order.specimenOptions}
+                  isMultiple
+                  disabled={true}
+                  formik={formik}
+                />
+
+                <Dropdown
+                  label="Priority"
+                  inputName="priority"
+                  value={order.priority}
+                  options={order.priorityOptions}
+                  formik={formik}
+                  onChange={(e) => {
+                    const newPriority = e.target.value;
+                    formik.setFieldValue(`labOrders[${index}].priority`, {
+                      label: newPriority,
+                      value: newPriority,
+                    });
+                  }}
+                />
+
+                <InputField
+                  label="Price"
+                  inputName="price"
+                  type="number"
+                  value={order.price}
+                  formik={formik}
+                  onChange={(e) => {
+                    const newPrice = e.target.value;
+                    formik.setFieldValue(`labOrders[${index}].price`, newPrice);
+                  }}
+                />
+
+                <TextArea
+                  label="Instruction"
+                  inputName="instruction"
+                  value={order.instruction}
+                  formik={formik}
+                  onChange={(e) => {
+                    const newInstruction = e.target.value;
+                    formik.setFieldValue(
+                      `labOrders[${index}].instruction`,
+                      newInstruction
+                    );
+                  }}
+                />
+              </div>
+            ))
+          ) : (
+            <div className="text-center py-8 text-gray-500 bg-white rounded-lg shadow-sm">
+              No Lab Orders Found
+            </div>
+          )}
+        </div>
       </div>
 
       <button
         type="submit"
-        onClick={() => medicineFormik.handleSubmit()}
+        onClick={() => formik.handleSubmit()}
         className="mt-8 px-8 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg active:scale-95 w-full md:w-auto"
       >
         Save Order

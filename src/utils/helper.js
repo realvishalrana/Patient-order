@@ -6,8 +6,6 @@ export const getErrors = ({
   dynamicError = false,
 }) => {
   if (dynamicError) {
-    console.log('objKey: ', objKey);
-    console.log('inputName: ', inputName);
     const error =
       formik.touched?.[objKey]?.[index]?.[inputName] &&
       formik.errors?.[objKey]?.[index]?.[inputName];

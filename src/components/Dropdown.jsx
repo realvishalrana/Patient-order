@@ -13,22 +13,38 @@ const Dropdown = ({
   objKey = false,
   dynamicError = false,
   index = false,
-  onChange = () => {}, // Default onChange function
+  onChange = () => {},
+  handleClearData = () => {},
+  disabled = false,
+  isMultiple = false,
 }) => {
-  // When a selection is made, store the full object (label and value)
+
+  // Handle change for single select vs. multi-select
   const handleDropdownChange = (e) => {
-    onChange(e);
+    if (isMultiple) {
+      const selectedValues = Array.from(
+        e.target.selectedOptions,
+        (option) => option.value
+      );
+      // Match the selected values with the original option objects
+      const selectedObjects = options.filter((opt) =>
+        selectedValues.includes(opt.value)
+      );
+      onChange({ target: { value: selectedObjects } });
+    } else {
+      onChange(e);
+    }
   };
 
-  // Clear the dropdown value (set to null)
+  // Clear the dropdown value (sets to [] for multi-select or null for single)
   const handleClear = () => {
     if (dynamicError && objKey && index !== false) {
-      // Build the full path for nested fields
       const fieldPath = `${objKey}[${index}].${inputName}`;
-      formik.setFieldValue(fieldPath, null);
+      formik.setFieldValue(fieldPath, isMultiple ? [] : null);
     } else {
-      formik.setFieldValue(inputName, null);
+      formik.setFieldValue(inputName, isMultiple ? [] : null);
     }
+    handleClearData({ objKey, index, inputName });
   };
 
   return (
@@ -39,17 +55,29 @@ const Dropdown = ({
       <div className="flex items-center gap-2 border border-gray-300 rounded-lg p-2 w-full focus-within:ring-2 focus-within:ring-blue-500">
         <select
           className="flex-1 bg-transparent focus:outline-none"
-          value={value ? value.value : ""} // if value exists, use its value property
+          multiple={isMultiple}
+          disabled={disabled}
+          value={
+            isMultiple
+              ? value
+                ? value.map((item) => item.value)
+                : []
+              : value
+              ? value.value
+              : ""
+          }
           onChange={handleDropdownChange}
         >
-          <option value="">Select...</option>
+          {/* For single select, include a placeholder option */}
+          {!isMultiple && <option value="">Select...</option>}
           {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
           ))}
         </select>
-        {value && (
+        {/* Only show clear button when not disabled */}
+        {!disabled && value && (
           <button
             type="button"
             className="text-gray-500 hover:text-red-500"

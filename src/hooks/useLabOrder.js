@@ -21,7 +21,7 @@ const useLabOrder = () => {
     try {
       axios({
         method: "get",
-        url: "http://localhost:3000/laboratory-test",
+        url: "http://localhost:3001/laboratory-test",
       }).then(({ data = [] }) => {
         const modifiedData = data.map((med) => {
           return {
