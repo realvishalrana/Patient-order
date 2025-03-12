@@ -4,7 +4,7 @@ import "./output.css";
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <div className="">
       <OrderIndex />
     </div>
   );

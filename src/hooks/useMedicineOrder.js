@@ -305,6 +305,35 @@ const useMedicineOrder = () => {
     setGlobalOrderIndex((prev) => prev - 1);
   };
 
+  const handleLabChange = (e, order) => {
+    const labTestValue = e.target.value;
+    if (labTestValue === "") {
+      formik.setFieldValue(`labOrders[${order.internalIndex}].priority`, null);
+      formik.setFieldValue(`labOrders[${order.internalIndex}].name`, null);
+      formik.setFieldValue(`labOrders[${order.internalIndex}].price`, "");
+      // Corrected field name here as well
+      formik.setFieldValue(`labOrders[${order.internalIndex}].instruction`, "");
+    } else {
+      // Otherwise, update the lab test name field
+      formik.setFieldValue(`labOrders[${order.internalIndex}].name`, {
+        label: labTestValue,
+        value: labTestValue,
+      });
+    }
+  };
+
+  const hanldePriorityChange = (e, order) => {
+    const newPriority = e.target.value;
+    if (newPriority === "") {
+      formik.setFieldValue(`labOrders[${order.internalIndex}].priority`, null);
+    } else {
+      formik.setFieldValue(`labOrders[${order.internalIndex}].priority`, {
+        label: newPriority,
+        value: newPriority,
+      });
+    }
+  };
+
   return {
     formik,
     handleAddMedicine,
@@ -316,6 +345,8 @@ const useMedicineOrder = () => {
     handleClearData,
     handleAddLabOrder,
     handleDeleteLabOrder,
+    handleLabChange,
+    hanldePriorityChange
   };
 };
 
