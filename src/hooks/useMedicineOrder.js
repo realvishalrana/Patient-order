@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 const useMedicineOrder = () => {
+  const [globalOrderIndex, setGlobalOrderIndex] = useState(1);
+
   const formik = useFormik({
     initialValues: {
       patientName: "",
@@ -37,11 +39,12 @@ const useMedicineOrder = () => {
       ),
       labOrders: Yup.array().of(
         Yup.object().shape({
-          selectedLab: Yup.string().required("Lab test is required"),
-          specimen: Yup.string().required("Specimen type is required"),
-          qty: Yup.number()
-            .min(1, "Quantity must be at least 1")
-            .required("Quantity is required"),
+          name: Yup.object().nullable().required("Lab test is required"),
+          specimen: Yup.array().required("Specimen type is required"),
+          price: Yup.number()
+            .min(1, "Price must be at least 1")
+            .required("Price is required"),
+          priority: Yup.object().nullable().required("Priority is required"),
         })
       ),
     }),
@@ -135,6 +138,7 @@ const useMedicineOrder = () => {
     formik.setFieldValue("medicineOrders", [
       ...(formik.values.medicineOrders || []), // Ensures it's always an array
       {
+        orderIndex: globalOrderIndex,
         selectedMedicine: selectedMedicineObj,
         selectedStrength: obj,
         qty: 1,
@@ -142,6 +146,7 @@ const useMedicineOrder = () => {
         total: 1 * firstVariants.price,
       },
     ]);
+    setGlobalOrderIndex((prev) => prev + 1);
   };
 
   const handleMedicineChange = (event, index) => {
@@ -225,12 +230,6 @@ const useMedicineOrder = () => {
     );
   };
 
-  const handleDeleteMedicineOrder = (index) => {
-    const medicineOrders = [...formik.values.medicineOrders];
-    medicineOrders.splice(index, 1);
-    formik.setFieldValue("medicineOrders", medicineOrders);
-  };
-
   const handleClearData = ({ objKey, index, inputName }) => {
     if (inputName === "selectedMedicine") {
       const fieldPath = `${objKey}[${index}].selectedStrength`;
@@ -243,19 +242,19 @@ const useMedicineOrder = () => {
 
   const handleAddLabOrder = () => {
     // For demonstration, we take the second lab test from your list
-    const selectedLabTest = formik.values.lapOptions[1];
-  
+    const selectedLabTest = formik.values.lapOptions[0];
+
     if (!selectedLabTest) {
       console.error("No lab test data available.");
       return;
     }
-  
+
     // Prepare specimen options – here we assume each specimen is a string.
     const specimenOptions = selectedLabTest.specimens.map((specimen) => ({
       label: specimen,
       value: specimen, // Adjust if you have an ID for each specimen
     }));
-  
+
     // Define your priority options as needed.
     const priorityOptions = [
       { label: "Critical Care", value: "CriticalCare" },
@@ -263,30 +262,48 @@ const useMedicineOrder = () => {
       { label: "Routine Care", value: "RoutineCare" },
       { label: "Scheduled Care", value: "ScheduledCare" },
     ];
-  
+
     const selectedMedicineObj = {
       label: selectedLabTest.name,
       value: selectedLabTest.id,
     };
-  
+
     // Create a lab order object with pre-populated values.
     const newLabOrder = {
+      orderIndex: globalOrderIndex,
       name: selectedMedicineObj,
       labTestOptions: [selectedMedicineObj],
       specimenOptions: specimenOptions,
+      specimen: specimenOptions,
       price: selectedLabTest.price,
       instruction: selectedLabTest.instruction,
       priorityOptions: priorityOptions,
       priority: priorityOptions[0],
     };
-  
+
     // Append the new lab order to your existing lab orders array.
     formik.setFieldValue("labOrders", [
       ...(formik.values.labOrders || []),
       newLabOrder,
     ]);
+
+    // Increment the global counter
+    setGlobalOrderIndex((prev) => prev + 1);
   };
-  
+
+  const handleDeleteMedicineOrder = (index) => {
+    const medicineOrders = [...formik.values.medicineOrders];
+    medicineOrders.splice(index, 1);
+    formik.setFieldValue("medicineOrders", medicineOrders);
+    setGlobalOrderIndex((prev) => prev - 1);
+  };
+
+  const handleDeleteLabOrder = (index) => {
+    const labOrders = [...formik.values.labOrders];
+    labOrders.splice(index, 1);
+    formik.setFieldValue("labOrders", labOrders);
+    setGlobalOrderIndex((prev) => prev - 1);
+  };
 
   return {
     formik,
@@ -298,6 +315,7 @@ const useMedicineOrder = () => {
     handleDeleteMedicineOrder,
     handleClearData,
     handleAddLabOrder,
+    handleDeleteLabOrder,
   };
 };
 
