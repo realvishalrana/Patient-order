@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 const useMedicineOrder = () => {
   const [globalOrderIndex, setGlobalOrderIndex] = useState(1);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -49,7 +51,15 @@ const useMedicineOrder = () => {
       ),
     }),
     onSubmit: (values) => {
-      console.log("values: ", values);
+      navigate("/order-confirmation", {
+        state: {
+          orderData: {
+            ...values,
+            orderId: `ORD-${Date.now()}`, // Generate unique ID
+            timestamp: new Date().toISOString(),
+          },
+        },
+      });
     },
   });
 
@@ -346,7 +356,7 @@ const useMedicineOrder = () => {
     handleAddLabOrder,
     handleDeleteLabOrder,
     handleLabChange,
-    hanldePriorityChange
+    hanldePriorityChange,
   };
 };
 
