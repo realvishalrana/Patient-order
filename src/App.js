@@ -1,20 +1,17 @@
 import React from "react";
-import PatientOrder from "./components/PatientOrder";
-import Temp from "./components/temp";
-import { Container } from '@mui/material';
-import TodoList from "./components/TodoList";
-
-
+import OrderIndex from "./components";
+import "./output.css";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import OrderConfirmation from "./components/OrderConfirmation";
+  
 function App() {
   return (
-    <>
-     <Container>
-      <h1>Todo List</h1>
-      <TodoList />
-    </Container>
-      {/* <Temp /> */}
-      {/* <PatientOrder /> */}
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<OrderIndex />} />
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
+      </Routes>
+    </Router>
   );
 }
 
