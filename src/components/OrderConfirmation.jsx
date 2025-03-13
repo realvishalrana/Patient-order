@@ -2,6 +2,46 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PrinterIcon from "../icons/PrinterIcon";
 import LeftArrow from "../icons/LeftArrowIcon";
 import OrderSummary from "../components/OrderSummary";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas-pro";
+
+
+const exportToPDF = () => {
+  const input = document.getElementById("order-confirmation");
+  if (!input) return;
+
+  // Override problematic styles
+  input.style.backgroundColor = "#fff";
+
+  html2canvas(input)
+    .then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      // Calculate image height in PDF units
+      const imgHeight = (canvas.height * pageWidth) / canvas.width;
+
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      // Add first page
+      pdf.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      // Add extra pages if needed
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, pageWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save("order_confirmation.pdf");
+    })
+    .catch((error) => console.error("Export to PDF error: ", error));
+};
 
 const OrderConfirmation = () => {
   const { state } = useLocation();
@@ -19,7 +59,7 @@ const OrderConfirmation = () => {
         <div className="mb-8 flex justify-between items-center">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:bg-gray-100"
+            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:bg-gray-100 p-2 rounded"
           >
             <LeftArrow />
             Back to Form
@@ -27,23 +67,25 @@ const OrderConfirmation = () => {
           <div className="flex gap-4">
             <button
               onClick={() => window.print()}
-              className="flex items-center gap-2 px-4 py-2  border rounded-lg hover:bg-gray-100"
+              className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-gray-100"
             >
               <PrinterIcon className="h-5 w-5" />
               Print
             </button>
-            {/* <button
+            <button
               onClick={() => exportToPDF(orderData)}
               className="flex items-center gap-2 px-4 py-2 bg-white border rounded-lg hover:bg-gray-100"
             >
-              <DocumentArrowDownIcon className="h-5 w-5" />
               Export PDF
-            </button> */}
+            </button>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div
+          id="order-confirmation"
+          className="bg-white rounded-xl shadow-lg p-8"
+        >
           <h1 className="text-3xl font-bold text-gray-900 mb-8 border-b pb-4">
             Order Confirmation - #{orderData.orderId || "N/A"}
           </h1>

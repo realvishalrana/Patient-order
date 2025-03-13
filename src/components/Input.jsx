@@ -18,6 +18,7 @@ const InputField = ({
   objKey = false,
   dynamicError = false,
   index = false,
+  maxDate = false,
   ...other
 }) => {
   return (
@@ -36,6 +37,7 @@ const InputField = ({
         disabled={disabled}
         placeholder={placeholder ?? `Enter ${label}`}
         className={inputClassName}
+        max={maxDate ? new Date(maxDate).toISOString().split("T")[0] : undefined} // Convert to YYYY-MM-DD format
         {...other}
       />
 

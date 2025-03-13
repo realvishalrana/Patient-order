@@ -30,6 +30,7 @@ const OrderIndex = () => {
           type="date"
           isError
           isRequired
+          maxDate={new Date()} 
           {...formik.getFieldProps("dob")}
         />
         <Dropdown
