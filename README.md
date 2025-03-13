@@ -53,7 +53,7 @@ After adding a new Medicine Order:
 
 ### Medicine Orders
 
-- Use the JSON server to fetch available medicines (http://localhost:3000/medicine).
+- Use the JSON server to fetch available medicines (http://localhost:3001/medicine).
 - Each medicine order will have dependent values:
   - **Medicine Name:** Populated from the JSON server.
   - **Strength:** Populated based on the selected medicine, fetched from the JSON server.
@@ -62,7 +62,7 @@ After adding a new Medicine Order:
 
 ### Lab Orders
 
-- Use the JSON server to fetch available lab tests (http://localhost:3000/laboratory-test).
+- Use the JSON server to fetch available lab tests (http://localhost:3001/laboratory-test).
 - Each lab order will have dependent values:
   - **Lab Test Name:** Populated from the JSON server.
   - **Specimen Type:** Populated based on the selected lab test, fetched from the JSON server, and displayed as comma-separated values.
