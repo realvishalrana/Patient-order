@@ -67,7 +67,7 @@ const useMedicineOrder = () => {
     try {
       axios({
         method: "get",
-        url: "http://localhost:3001/medicine",
+        url: process.env.REACT_APP_MEDICINE_API,
       }).then(({ data = [] }) => {
         const modifiedData = data.map((med) => {
           return {
@@ -87,7 +87,7 @@ const useMedicineOrder = () => {
     try {
       axios({
         method: "get",
-        url: "http://localhost:3001/laboratory-test",
+        url: process.env.REACT_APP_LABORATORY_API,
       }).then(({ data = [] }) => {
         const modifiedData = data.map((med) => {
           return {
